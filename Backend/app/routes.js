@@ -13,4 +13,8 @@ module.exports = function (app) {
   app.route("/api/master/product").put(product.insert);
   app.route("/api/master/product").post(product.update);
   app.route("/api/master/product").delete(product.delete);
+
+  var transaction = require("./controller/transaction");
+  app.route("/api/transaction").get(transaction.get);
+  app.route("/api/transaction").put(transaction.insert);
 };

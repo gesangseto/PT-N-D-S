@@ -72,6 +72,68 @@ INSERT INTO `mst_product` VALUES (3,'Angklung',12000,'','2022-05-25 06:19:35',NU
 UNLOCK TABLES;
 
 --
+-- Table structure for table `trx`
+--
+
+DROP TABLE IF EXISTS `trx`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trx` (
+  `id_trx` int NOT NULL AUTO_INCREMENT,
+  `kode_trx` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `total` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_pelanggan` int NOT NULL,
+  PRIMARY KEY (`id_trx`),
+  UNIQUE KEY `trx_un` (`kode_trx`),
+  KEY `trx_FK` (`id_pelanggan`),
+  CONSTRAINT `trx_FK` FOREIGN KEY (`id_pelanggan`) REFERENCES `mst_pelanggan` (`id_pelanggan`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `trx`
+--
+
+LOCK TABLES `trx` WRITE;
+/*!40000 ALTER TABLE `trx` DISABLE KEYS */;
+/*!40000 ALTER TABLE `trx` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `trx_detail`
+--
+
+DROP TABLE IF EXISTS `trx_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trx_detail` (
+  `id_trx_detail` int NOT NULL AUTO_INCREMENT,
+  `id_trx` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_product` int NOT NULL,
+  `qty` int NOT NULL,
+  `harga_product` int NOT NULL,
+  PRIMARY KEY (`id_trx_detail`),
+  KEY `trx_detail_FK_1` (`id_product`),
+  KEY `trx_detail_FK_2` (`id_trx`),
+  CONSTRAINT `trx_detail_FK_1` FOREIGN KEY (`id_product`) REFERENCES `mst_product` (`id_product`),
+  CONSTRAINT `trx_detail_FK_2` FOREIGN KEY (`id_trx`) REFERENCES `trx` (`id_trx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `trx_detail`
+--
+
+LOCK TABLES `trx_detail` WRITE;
+/*!40000 ALTER TABLE `trx_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `trx_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping routines for database 'nds'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -84,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-25 13:47:31
+-- Dump completed on 2022-05-25 16:44:02
