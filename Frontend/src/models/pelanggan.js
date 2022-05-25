@@ -74,3 +74,26 @@ export const updatePelanggan = async (property = {}, use_alert = true) => {
       });
   });
 };
+
+export const deletePelanggan = async (property = {}, use_alert = true) => {
+  console.log(property);
+  let url = `/api/master/pelanggan`;
+  console.log(url);
+  return new Promise((resolve) => {
+    $axios
+      .delete(url, { data: property })
+      .then((result) => {
+        result = result.data;
+        if (result.error) {
+          if (use_alert) toast(result.message);
+          return resolve(false);
+        } else {
+          return resolve(result.data);
+        }
+      })
+      .catch((e) => {
+        if (use_alert) toast(e.message);
+        return resolve(false);
+      });
+  });
+};

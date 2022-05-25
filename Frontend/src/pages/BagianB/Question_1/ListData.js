@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Form, Table } from "react-bootstrap";
-import { getPelanggan } from "../../../models/pelanggan";
-import { Link, useLocation } from "react-router-dom";
+import { Table } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { LinkButton } from "../../../components/atoms";
+import { deletePelanggan, getPelanggan } from "../../../models/pelanggan";
 
 export default function ListData() {
-  const [datas, setDatas] = useState([]);
   const location = useLocation();
+  let navigate = useNavigate();
+  const [datas, setDatas] = useState([]);
 
   const get_data = async () => {
     let data = await getPelanggan();
@@ -16,6 +18,19 @@ export default function ListData() {
   useEffect(() => {
     get_data();
   }, []);
+
+  const handleClickDelete = async (id) => {
+    let par = {
+      id_pelanggan: id,
+    };
+    let del = await deletePelanggan(par);
+    if (!del) {
+      return;
+    }
+    toast("Success delete pelanggan");
+    get_data();
+    return;
+  };
 
   return (
     <div style={{ padding: 20 }}>
@@ -48,13 +63,25 @@ export default function ListData() {
                   <LinkButton
                     title="Update"
                     variant="warning"
-                    to={`${location.pathname}/update/${item.id_pelanggan}`}
+                    onClick={() =>
+                      navigate(
+                        `${location.pathname}/update/${item.id_pelanggan}`
+                      )
+                    }
                   ></LinkButton>
                   &nbsp;
                   <LinkButton
                     title="Read"
                     variant="info"
-                    to={`${location.pathname}/read/${item.id_pelanggan}`}
+                    onClick={() =>
+                      navigate(`${location.pathname}/read/${item.id_pelanggan}`)
+                    }
+                  ></LinkButton>
+                  &nbsp;
+                  <LinkButton
+                    title="Delete"
+                    variant="danger"
+                    onClick={() => handleClickDelete(item.id_pelanggan)}
                   ></LinkButton>
                 </td>
               </tr>

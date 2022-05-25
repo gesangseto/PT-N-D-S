@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { LinkButton } from "../../../components/atoms";
-import { getProduct } from "../../../models";
+import { deleteProduct, getProduct } from "../../../models";
 
 export default function ListData() {
-  const [datas, setDatas] = useState([]);
   const location = useLocation();
+  let navigate = useNavigate();
+  const [datas, setDatas] = useState([]);
 
   const get_data = async () => {
     let data = await getProduct();
@@ -16,6 +18,19 @@ export default function ListData() {
   useEffect(() => {
     get_data();
   }, []);
+
+  const handleClickDelete = async (id) => {
+    let par = {
+      id_product: id,
+    };
+    let del = await deleteProduct(par);
+    if (!del) {
+      return;
+    }
+    toast("Success delete product");
+    get_data();
+    return;
+  };
 
   return (
     <div style={{ padding: 20 }}>
@@ -48,13 +63,23 @@ export default function ListData() {
                   <LinkButton
                     title="Update"
                     variant="warning"
-                    to={`${location.pathname}/update/${item.id_product}`}
+                    onClick={() =>
+                      navigate(`${location.pathname}/update/${item.id_product}`)
+                    }
                   ></LinkButton>
                   &nbsp;
                   <LinkButton
                     title="Read"
                     variant="info"
-                    to={`${location.pathname}/read/${item.id_product}`}
+                    onClick={() =>
+                      navigate(`${location.pathname}/read/${item.id_product}`)
+                    }
+                  ></LinkButton>
+                  &nbsp;
+                  <LinkButton
+                    title="Delete"
+                    variant="danger"
+                    onClick={() => handleClickDelete(item.id_product)}
                   ></LinkButton>
                 </td>
               </tr>

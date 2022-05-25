@@ -5,11 +5,11 @@ import { Button } from "react-bootstrap";
 
 export default function LinkButton(props) {
   let navigate = useNavigate();
-  const { to, textColor, title } = props;
+  const { textColor, title } = props;
 
   return (
     <>
-      <Button size="sm" {...props} onClick={() => navigate(to ?? "/")}>
+      <Button size="sm" {...props}>
         {title ?? "No Title"}
       </Button>
     </>
