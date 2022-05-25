@@ -12,6 +12,8 @@ import Question_A_2 from "./pages/BagianA/Question_2";
 import Question_A_3 from "./pages/BagianA/Question_3";
 import Question_B_1 from "./pages/BagianB/Question_1/ListData";
 import Question_B_1_F from "./pages/BagianB/Question_1/FormData";
+import Question_B_2 from "./pages/BagianB/Question_2/ListData";
+import Question_B_2_F from "./pages/BagianB/Question_2/FormData";
 
 const App = () => (
   <Router>
@@ -40,6 +42,15 @@ const App = () => (
         element={<Question_B_1_F />}
       />
       {/* End Of Pelanggan */}
+
+      {/* Product */}
+      <Route path="/bagian-b/Question_2" element={<Question_B_2 />} />
+      <Route path="/bagian-b/Question_2/:type" element={<Question_B_2_F />} />
+      <Route
+        path="/bagian-b/Question_2/:type/:id"
+        element={<Question_B_2_F />}
+      />
+      {/* End Of Product */}
     </Routes>
   </Router>
 );

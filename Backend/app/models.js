@@ -213,7 +213,7 @@ async function update_query({ data, key, table }) {
       }
     }
     if (isColumAvalaible) {
-      if (is_text) {
+      if (is_text && it != "null") {
         _data.push(` ${k} = '${it}'`);
       } else if (is_int && isInt(it)) {
         _data.push(` ${k} = '${it}'`);

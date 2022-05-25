@@ -20,7 +20,7 @@ export const navigation = [
     active: false,
     child: [
       { name: "Master Pelanggan", url: "/bagian-b/Question_1", active: false },
-      { name: "Master Product", url: null, active: false },
+      { name: "Master Product", url: "/bagian-b/Question_2", active: false },
       { name: "Data Transaksi", url: null, active: false },
       { name: "Detail Transaksi", url: null, active: false },
     ],
