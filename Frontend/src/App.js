@@ -1,25 +1,45 @@
-import logo from "./logo.svg";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./components/layout/Header.js";
 import Home from "./pages/Home.js";
-import Question_1 from "./pages/BagianA/Question_1";
-import Question_2 from "./pages/BagianA/Question_2";
-import Question_3 from "./pages/BagianA/Question_3";
+import Question_A_1 from "./pages/BagianA/Question_1";
+import Question_A_2 from "./pages/BagianA/Question_2";
+import Question_A_3 from "./pages/BagianA/Question_3";
+import Question_B_1 from "./pages/BagianB/Question_1/ListData";
+import Question_B_1_F from "./pages/BagianB/Question_1/FormData";
 
 const App = () => (
   <Router>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
     <Header />
     <Routes>
-      <Route exact path="/dashboard" element={<Home />} />
-      <Route exact path="/bagian-a/Question_1" element={<Question_1 />} />
-      <Route exact path="/bagian-a/Question_2" element={<Question_2 />} />
-      <Route exact path="/bagian-a/Question_3" element={<Question_3 />} />
-      {/* <Route path="*" element={<NotFound/>}/> */}
+      <Route path="/dashboard" element={<Home />} />
+      <Route path="/bagian-a/Question_1" element={<Question_A_1 />} />
+      <Route path="/bagian-a/Question_2" element={<Question_A_2 />} />
+      <Route path="/bagian-a/Question_3" element={<Question_A_3 />} />
+      {/* Pelanggan */}
+      <Route path="/bagian-b/Question_1" element={<Question_B_1 />} />
+      <Route path="/bagian-b/Question_1/:type" element={<Question_B_1_F />} />
+      <Route
+        path="/bagian-b/Question_1/:type/:id"
+        element={<Question_B_1_F />}
+      />
+      {/* End Of Pelanggan */}
     </Routes>
   </Router>
 );

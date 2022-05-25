@@ -16,10 +16,10 @@ export const navigation = [
   },
   {
     name: "Bagian B",
-    url: null,
+    url: "/bagian-b",
     active: false,
     child: [
-      { name: "Master Pelanggan", url: null, active: false },
+      { name: "Master Pelanggan", url: "/bagian-b/Question_1", active: false },
       { name: "Master Product", url: null, active: false },
       { name: "Data Transaksi", url: null, active: false },
       { name: "Detail Transaksi", url: null, active: false },
