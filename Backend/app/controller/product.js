@@ -6,18 +6,18 @@ const sp = require("../sp");
 const utils = require("../utils");
 const perf = require("execution-time")();
 
-const structure_pelanggan = {
-  id_pelanggan: "INT",
-  nama_pelanggan: "varchar(100)",
-  alamat_pelanggan: "varchar(100)",
-  telp_pelanggan: "BIGINT",
+const structure_product = {
+  id_product: "INT",
+  nama_product: "varchar(100)",
+  harga_product: "int",
+  desc_product: "varchar(100)",
 };
 exports.get = async function (req, res) {
   var data = { data: req.query };
   try {
     perf.start();
     var query = `
-    SELECT * FROM mst_pelanggan AS a 
+    SELECT * FROM mst_product AS a 
     WHERE 1+1=2 `;
     for (const k in req.query) {
       if (k != "page" && k != "limit") {
@@ -45,11 +45,7 @@ exports.insert = async function (req, res) {
   var data = { data: req.body };
   try {
     perf.start();
-    const require_data = [
-      "nama_pelanggan",
-      "alamat_pelanggan",
-      "telp_pelanggan",
-    ];
+    const require_data = ["nama_product", "harga_product"];
     for (const row of require_data) {
       if (!req.body[`${row}`]) {
         data.error = true;
@@ -59,8 +55,8 @@ exports.insert = async function (req, res) {
     }
     let insert = models.insert_query({
       data: req.body,
-      key: "id_pelanggan",
-      table: "mst_pelanggan",
+      key: "id_product",
+      table: "mst_product",
     });
     return response.response(insert, res);
   } catch (error) {
@@ -74,12 +70,7 @@ exports.update = async function (req, res) {
   var data = { data: req.body };
   try {
     perf.start();
-    const require_data = [
-      "id_pelanggan",
-      "nama_pelanggan",
-      "alamat_pelanggan",
-      "telp_pelanggan",
-    ];
+    const require_data = ["id_product", "nama_product", "harga_product"];
     for (const row of require_data) {
       if (!req.body[`${row}`]) {
         data.error = true;
@@ -89,8 +80,8 @@ exports.update = async function (req, res) {
     }
     let update = models.update_query({
       data: req.body,
-      key: "id_pelanggan",
-      table: "mst_pelanggan",
+      key: "id_product",
+      table: "mst_product",
     });
     return response.response(update, res);
   } catch (error) {
@@ -103,7 +94,7 @@ exports.delete = async function (req, res) {
   var data = { data: req.body };
   try {
     perf.start();
-    const require_data = ["id_pelanggan"];
+    const require_data = ["id_product"];
     for (const row of require_data) {
       if (!req.body[`${row}`]) {
         data.error = true;
@@ -113,8 +104,8 @@ exports.delete = async function (req, res) {
     }
     let del = models.delete_query({
       data: req.body,
-      key: "id_pelanggan",
-      table: "mst_pelanggan",
+      key: "id_product",
+      table: "mst_product",
       force_delete: true,
     });
     return response.response(del, res);
